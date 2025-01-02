@@ -13,8 +13,4 @@ public class ProdutosApiApplication {
 		SpringApplication.run(ProdutosApiApplication.class, args);
 	}
 
-	@GetMapping("/hello-world")
-	public String helloWorld(){
-		return "Hello World";
-	}
 }
