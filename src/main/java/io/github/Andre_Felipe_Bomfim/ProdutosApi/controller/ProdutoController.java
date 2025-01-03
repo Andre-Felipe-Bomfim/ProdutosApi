@@ -1,16 +1,37 @@
 package io.github.Andre_Felipe_Bomfim.ProdutosApi.controller;
 
 import io.github.Andre_Felipe_Bomfim.ProdutosApi.model.Produto;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.github.Andre_Felipe_Bomfim.ProdutosApi.repository.ProdutoRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("produtos")
 public class ProdutoController {
-    @PostMapping("/post-product")
-    public void save(@RequestBody Produto produto){
+
+    private ProdutoRepository produtoRepository;
+
+    public ProdutoController(ProdutoRepository produtoRepository) {
+        this.produtoRepository = produtoRepository;
+    }
+
+    @PostMapping
+    public Produto save(@RequestBody Produto produto){
         System.out.println("Produto recebido: " + produto);
+
+        var id = UUID.randomUUID().toString();
+        produto.setId(id);
+
+        produtoRepository.save(produto);
+        return produto;
+    }
+
+    @GetMapping("/{id}")
+    public Produto obterPorId(@PathVariable("id") String id){
+        Optional<Produto> produto = produtoRepository.findById(id);
+        return produto.isPresent() ? produto.get():null;
+        //ou usar return produtoRepository.findById(id).orElse(null);
     }
 }
