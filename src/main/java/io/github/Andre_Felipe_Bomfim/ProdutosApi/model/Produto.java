@@ -1,9 +1,6 @@
 package io.github.Andre_Felipe_Bomfim.ProdutosApi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "produto")
@@ -56,11 +53,10 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Produto{" +
+        return "Produto" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", price='" + price + '\'' +
-                '}';
+                ", price='" + price + '\'';
     }
 }
